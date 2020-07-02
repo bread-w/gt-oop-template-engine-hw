@@ -4,6 +4,7 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const validator = require("email-validator");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -25,6 +26,7 @@ const questions = [
     message: "What is your email address?",
     type: "input",
     name: "email",
+    // validate: validateEmail,
   },
   {
     message: "What is your role?",
@@ -61,9 +63,15 @@ const questions = [
 // and to create objects for each team member (using the correct classes as blueprints!)
 const teammates = [];
 // function to initialize program
-const validateEmail = async (input) => {
-    
-}
+
+// function validateEmail(input){
+//   if (validator.validate(input)) {
+
+//   } else {
+//     console.log("Please enter a valid email address.");
+//     return init();
+//   }
+// };
 
 function init() {
   // I used the inquirer template from npmjs.com

@@ -26,7 +26,13 @@ const questions = [
     message: "What is your email address?",
     type: "input",
     name: "email",
-    // validate: validateEmail,
+    validate: (input) => {
+      const pass = validator.validate(input);
+      if (pass) {
+        return true;
+      }
+      return "Please enter a valid email address.";
+    },
   },
   {
     message: "What is your role?",

@@ -61,6 +61,10 @@ const questions = [
 // and to create objects for each team member (using the correct classes as blueprints!)
 const teammates = [];
 // function to initialize program
+const validateEmail = async (input) => {
+    
+}
+
 function init() {
   // I used the inquirer template from npmjs.com
   inquirer
@@ -93,7 +97,7 @@ const createNewTeammate = (data) => {
 
   teammates.push(newTeammate);
 
-  if ((data.addAnother === true)) {
+  if (data.addAnother === true) {
     return init();
   }
 

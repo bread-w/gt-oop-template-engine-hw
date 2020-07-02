@@ -5,7 +5,7 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const validator = require("email-validator");
-
+const githubValidator = require("github-username-regex");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
@@ -62,6 +62,13 @@ const questions = [
     message: "What is your Github username?",
     type: "input",
     name: "github",
+    validate: (input) => {
+      const validUser = githubValidator.test(input);
+      if (validUser) {
+        return true;
+      }
+        return "Please enter a valid Github username.";
+    },
     when: (response) => response.role === "Engineer",
   },
   {

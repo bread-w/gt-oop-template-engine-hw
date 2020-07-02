@@ -50,10 +50,16 @@ const questions = [
     name: "school",
     when: (response) => response.role === "Intern",
   },
+  {
+    message: "Would you like to add another teammate?",
+    type: "confirm",
+    name: "addAnother",
+  },
 ];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+const teammates = [];
 // function to initialize program
 function init() {
   // I used the inquirer template from npmjs.com
@@ -61,18 +67,43 @@ function init() {
     .prompt(questions)
 
     .then((data) => {
-      console.log(data);
+      createNewTeammate(data);
+      //   console.log(data);
       // Use user feedback for... whatever!!
     })
     .catch((error) => {
       console.log(error);
-      if (error.isTtyError) {
-        // Prompt couldn't be rendered in the current environment
-      } else {
-        // Something else when wrong
-      }
     });
 }
+
+const createNewTeammate = (data) => {
+  let newTeammate;
+  if (data.role === "Manager") {
+    newTeammate = new Manager(
+      data.name,
+      data.id,
+      data.email,
+      data.officeNumber
+    );
+  } else if (data.role === "Engineer") {
+    newTeammate = new Engineer(data.name, data.id, data.email, data.github);
+  } else if (data.role === "Intern") {
+    newTeammate = new Intern(data.name, data.id, data.email, data.school);
+  }
+
+  teammates.push(newTeammate);
+
+  if ((data.addAnother === true)) {
+    return init();
+  }
+
+  fs.writeFileSync(outputPath, render(teammates), function (error) {
+    if (error) {
+      console.log("Error creating new employee.");
+    }
+  });
+};
+
 init();
 
 // After the user has input all employees desired, call the `render` function (required

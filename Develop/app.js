@@ -6,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const validator = require("email-validator");
 const githubValidator = require("github-username-regex");
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
@@ -18,7 +19,7 @@ const questions = [
     name: "name",
   },
   {
-    message: "What is your employee ID?",
+    message: "What is your employee ID number?",
     type: "input",
     name: "id",
     validate: (input) => {

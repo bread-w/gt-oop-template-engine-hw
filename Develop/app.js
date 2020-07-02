@@ -21,6 +21,12 @@ const questions = [
     message: "What is your employee ID?",
     type: "input",
     name: "id",
+    validate: (input) => {
+      if (Number.isInteger(parseInt(input))) {
+        return true;
+      }
+      return "Please enter a valid ID number.";
+    },
   },
   {
     message: "What is your email address?",
@@ -44,6 +50,12 @@ const questions = [
     message: "What is your office number?",
     type: "input",
     name: "officeNumber",
+    validate: (input) => {
+      if (Number.isInteger(parseInt(input))) {
+        return true;
+      }
+      return "Please enter a valid office number.";
+    },
     when: (response) => response.role === "Manager",
   },
   {
@@ -69,16 +81,6 @@ const questions = [
 // and to create objects for each team member (using the correct classes as blueprints!)
 const teammates = [];
 // function to initialize program
-
-// function validateEmail(input){
-//   if (validator.validate(input)) {
-
-//   } else {
-//     console.log("Please enter a valid email address.");
-//     return init();
-//   }
-// };
-
 function init() {
   // I used the inquirer template from npmjs.com
   inquirer

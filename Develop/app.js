@@ -4,15 +4,135 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const validator = require("email-validator");
+const githubValidator = require("github-username-regex");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const questions = [
+  {
+    message: "What is your name?",
+    type: "input",
+    name: "name",
+  },
+  {
+    message: "What is your employee ID number?",
+    type: "input",
+    name: "id",
+    validate: (input) => {
+      if (Number.isInteger(parseInt(input))) {
+        return true;
+      }
+      return "Please enter a valid ID number.";
+    },
+  },
+  {
+    message: "What is your email address?",
+    type: "input",
+    name: "email",
+    validate: (input) => {
+      const pass = validator.validate(input);
+      if (pass) {
+        return true;
+      }
+      return "Please enter a valid email address.";
+    },
+  },
+  {
+    message: "What is your role?",
+    type: "list",
+    name: "role",
+    choices: ["Manager", "Engineer", "Intern"],
+  },
+  {
+    message: "What is your office number?",
+    type: "input",
+    name: "officeNumber",
+    validate: (input) => {
+      if (Number.isInteger(parseInt(input))) {
+        return true;
+      }
+      return "Please enter a valid office number.";
+    },
+    when: (response) => response.role === "Manager",
+  },
+  {
+    message: "What is your Github username?",
+    type: "input",
+    name: "github",
+    validate: (input) => {
+      const validUser = githubValidator.test(input);
+      if (validUser) {
+        return true;
+      }
+        return "Please enter a valid Github username.";
+    },
+    when: (response) => response.role === "Engineer",
+  },
+  {
+    message: "What school/university did you attend?",
+    type: "input",
+    name: "school",
+    when: (response) => response.role === "Intern",
+  },
+  {
+    message: "Would you like to add another teammate?",
+    type: "confirm",
+    name: "addAnother",
+  },
+];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+const teammates = [];
+// function to initialize program
+function init() {
+  // I used the inquirer template from npmjs.com
+  inquirer
+    .prompt(questions)
+
+    .then((data) => {
+      createNewTeammate(data);
+      //   console.log(data);
+      // Use user feedback for... whatever!!
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+const createNewTeammate = (data) => {
+  let newTeammate;
+  if (data.role === "Manager") {
+    newTeammate = new Manager(
+      data.name,
+      data.id,
+      data.email,
+      data.officeNumber
+    );
+  } else if (data.role === "Engineer") {
+    newTeammate = new Engineer(data.name, data.id, data.email, data.github);
+  } else if (data.role === "Intern") {
+    newTeammate = new Intern(data.name, data.id, data.email, data.school);
+  }
+
+  teammates.push(newTeammate);
+
+  if (data.addAnother === true) {
+    return init();
+  }
+
+  fs.writeFileSync(outputPath, render(teammates), function (error) {
+    if (error) {
+      console.log("Error creating new employee.");
+    }
+  });
+};
+
+init();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will

@@ -1,0 +1,27 @@
+h1 {
+  font-size: 50px;
+  font-weight: bolder;
+}
+
+.team-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.employee-card {
+  border-style: outset;
+  margin: 10px;
+}
+
+.team-heading {
+  background-color: #222222;
+  color: whitesmoke;
+}
+
+.card-header {
+  background-color: #d7dadc;
+}
+
+body {
+  background-image: url("cool-background.png");
+}

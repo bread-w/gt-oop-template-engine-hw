@@ -22,7 +22,7 @@ Clone the GitHub repository and then open your terminal. Using the terminal, nav
 
 ## Usage
 
-![generatedREADME](/assets/exampleTeam.png)
+![generatedREADME](../assets/exampleTeam.png)
 
 ## Credits
 ```

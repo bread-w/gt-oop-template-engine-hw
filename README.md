@@ -13,16 +13,16 @@
 * [Questions](#questions)
 
 ## Description
-```
+
 This command line application generates a software engineering team html roster based on a user's response to various prompts within the terminal. Upon answering each prompt and choosing a license, a team.html file will be generated for the user that is viewable in the output folder.
-```
+
 ## Installation
-```md
+
 Clone the GitHub repository and then open your terminal. Using the terminal, navigate to the appropriate file path for your app.js file. In the correct file location, run 'node -v' in your terminal to determine that your node version is either v12.1 or higher. Next run 'npm install' to install any required dependencies on your local machine. Once installed, run 'node app-js' and follow the prompts from the terminal. You can find your generated software engineering team roster in team.html in the output folder included in the repository.
-```
+
 ## Usage
 
-![generatedREADME](./assets/exampleTeam.png)
+![generatedREADME](/assets/exampleTeam.png)
 
 ## Credits
 ```
@@ -30,9 +30,9 @@ This was created by Brad Williams for the Georgia Tech Web Development Bootcamp.
 ```
 
 ## Contributing
-```
+
 Pull requests are welcome. If you would like to make any major changes to the code, please contact me first to open a discussion. My GitHub link and email are listed below.
-```
+
 ## License
 
 Copyright (c) [2020] [Brad Williams]
